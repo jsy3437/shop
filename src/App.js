@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './App.css';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
@@ -7,8 +7,11 @@ import JumboTron from './Jumbotron';
 import NavBar from './NavBar';
 import Detail from './Detail';
 import Data from './data';
+import Cart from './Cart';
 
 import { Link, Route, Switch } from 'react-router-dom';
+
+export let 재고context = React.createContext();
 
 function App() {
 	let [shoes, shoes변경] = useState(Data);
@@ -21,11 +24,14 @@ function App() {
 					<NavBar />
 					<JumboTron />
 					<div className='container'>
-						<div className='row'>
-							{shoes.map((a, i) => {
-								return <Card shoes={a} i={i} />;
-							})}
-						</div>
+						<재고context.Provider value={재고}>
+							<div className='row'>
+								{shoes.map((a, i) => {
+									return <Card shoes={a} i={i} />;
+								})}
+							</div>
+						</재고context.Provider>
+
 						<Button
 							className='bnt bnt-primary'
 							onClick={() => {
@@ -51,9 +57,15 @@ function App() {
 					</div>
 				</Route>
 
+				<Route path='/cart'>
+					<Cart />
+				</Route>
+
 				<Route path='/detail/:id'>
 					<NavBar />
-					<Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+					<재고context.Provider value={재고}>
+						<Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+					</재고context.Provider>
 				</Route>
 			</Switch>
 		</div>
@@ -61,6 +73,8 @@ function App() {
 }
 
 function Card(props) {
+	let 재고 = useContext(재고context);
+
 	return (
 		<div className='col-md-4'>
 			<img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width='100%'></img>
@@ -68,6 +82,7 @@ function Card(props) {
 			<p>
 				{props.shoes.content} & {props.shoes.price}원
 			</p>
+			{재고[props.i]}
 		</div>
 	);
 }
