@@ -13,8 +13,13 @@ let 초기값 = [
 ];
 
 function reducer(state = 초기값, 액션) {
+	if (액션.type === '항목추가') {
+		let copy = [...state];
+		copy.push(액션.payload);
+		return copy;
+	}
 	// 요청이 '수량증가' 이면
-	if (액션.type === '수량증가' || 액션.type === '수량감소') {
+	else if (액션.type === '수량증가' || 액션.type === '수량감소') {
 		// 초기값을 복사해서
 		let copy = [...state];
 		// 복사본에 수량을 1더해주고
