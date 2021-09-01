@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import './Detail.scss';
 import { 재고context } from './App';
 import { Nav } from 'react-bootstrap';
@@ -26,6 +26,26 @@ function Detail(props) {
 			clearTimeout(타이머);
 		};
 	});
+
+	useEffect(() => {
+		if ('/detail.id') {
+			// localStorage.setItem('key', JSON.stringify([{ id: 찾은상품.id }]));
+			// let getLocal = localStorage.getItem('key');
+			// JSON.parse(getLocal);
+			// if (getLocal !== null) {
+			// 	var para = document.location.href.split('detail/');
+			// 	console.log(para[1]);
+			// 	// key.push(para[1]);
+			// 	console.log(getLocal);
+			// }
+			// localStorage.setItem('key', []);
+			var cat = localStorage.getItem('myCat');
+			localStorage.setItem('myCat', ['Tom']);
+			// localStorage.myCat = ['Tom', 'com'];
+			
+			console.log(cat);
+		}
+	}, []);
 
 	let history = useHistory();
 	let { id } = useParams();
@@ -74,7 +94,7 @@ function Detail(props) {
 								props.재고변경(재고사본);
 								props.dispatch({
 									type: '항목추가',
-									payload: { id: 찾은상품.id, name: 찾은상품.title, quan: props.재고[0] },
+									데이터: { id: 찾은상품.id, name: 찾은상품.title, quan: props.재고[0] },
 								});
 								history.push('/cart');
 							}

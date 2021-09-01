@@ -8,6 +8,7 @@ import NavBar from './NavBar';
 import Detail from './Detail';
 import Data from './data';
 import Cart from './Cart';
+import { useHistory } from 'react-router';
 
 import { Link, Route, Switch } from 'react-router-dom';
 
@@ -74,9 +75,14 @@ function App() {
 
 function Card(props) {
 	let 재고 = useContext(재고context);
+	let history = useHistory();
 
 	return (
-		<div className='col-md-4'>
+		<div
+			className='col-md-4'
+			onClick={() => {
+				history.push('/detail/' + props.shoes.id);
+			}}>
 			<img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width='100%'></img>
 			<h4>{props.shoes.title}</h4>
 			<p>

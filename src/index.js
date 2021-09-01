@@ -14,16 +14,25 @@ let 초기값 = [
 
 function reducer(state = 초기값, 액션) {
 	if (액션.type === '항목추가') {
-		let copy = [...state];
-		copy.push(액션.payload);
-		return copy;
+		let found = state.findIndex((a) => {
+			return a.id === 액션.데이터.id;
+		});
+		if (found >= 0) {
+			let copy = [...state];
+			copy[found].quan++;
+			return copy;
+		} else {
+			let copy = [...state];
+			copy.push(액션.payload);
+			return copy;
+		}
 	}
 	// 요청이 '수량증가' 이면
 	else if (액션.type === '수량증가' || 액션.type === '수량감소') {
 		// 초기값을 복사해서
 		let copy = [...state];
 		// 복사본에 수량을 1더해주고
-		액션.type === '수량증가' ? copy[0].quan++ : copy[0].quan--;
+		액션.type === '수량증가' ? copy[액션.데이터].quan++ : copy[액션.데이터].quan--;
 
 		// 복사본을 리턴해준다
 		return copy;

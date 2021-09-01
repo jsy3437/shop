@@ -3,8 +3,12 @@ import NavBar from './NavBar';
 import { connect } from 'react-redux';
 
 import { Navbar, Table } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Cart(props) {
+	let state = useSelector((state) => state);
+	let dispatch = useDispatch();
+
 	return (
 		<div>
 			<Table responsive='sm'>
@@ -17,7 +21,7 @@ function Cart(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{props.state.map((a, i) => {
+					{state.reducer.map((a, i) => {
 						return (
 							<tr key={i}>
 								<td>{a.id}</td>
@@ -27,13 +31,13 @@ function Cart(props) {
 									<button
 										onClick={() => {
 											// 리듀서로 수정요청을 한다
-											props.dispatch({ type: '수량증가' });
+											dispatch({ type: '수량증가', 데이터: a.id });
 										}}>
 										+
 									</button>
 									<button
 										onClick={() => {
-											props.dispatch({ type: '수량감소' });
+											dispatch({ type: '수량감소', 데이터: a.id });
 										}}>
 										-
 									</button>
@@ -44,12 +48,12 @@ function Cart(props) {
 				</tbody>
 			</Table>
 
-			{props.alert열렸니 === true ? (
+			{state.reducer2 === true ? (
 				<div className='my-alert2'>
 					<p>지금 구매하시면 신규할인 20%</p>
 					<button
 						onClick={() => {
-							props.dispatch({ type: '창닫기' });
+							dispatch({ type: '창닫기' });
 						}}>
 						닫기
 					</button>
@@ -59,11 +63,4 @@ function Cart(props) {
 	);
 }
 
-function state를props화(state) {
-	return {
-		state: state.reducer,
-		alert열렸니: state.reducer2,
-	};
-}
-
-export default connect(state를props화)(Cart);
+export default Cart;
