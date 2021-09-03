@@ -15,7 +15,7 @@ export default [
 		price: 110000,
 	},
 
-	{
+{
 		id: 2,
 		title: 'Grey Yordan',
 		content: 'Born in the States',

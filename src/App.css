@@ -21,3 +21,27 @@
 	background-color: white;
 	color: black;
 }
+
+.watched {
+	width: 150px;
+	height: 350px;
+	border-radius: 2px;
+	position: absolute;
+	right: 10px;
+	bottom: 100px;
+	box-shadow: 0 0 4px rgb(124, 124, 124);
+}
+.watched_title {
+	background-color: rgb(194, 194, 194);
+	color: white;
+}
+
+.watched_content {
+	background-color: rgba(255, 242, 241, 0.431);
+	height: 100px;
+}
+
+.watched_content_img img {
+	width: 100px;
+	height: 70px;
+}
